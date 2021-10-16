@@ -1,10 +1,55 @@
 class API {
-  get(id) {
-
+  async getAll() {
+    try {
+      let response = await fetch("/api/contacts");
+      return response.json();
+    } catch(error) {
+      console.log("Could not get contacts:\n" + error);
+      return null;
+    }
   }
 
-  post(contact) {
+  async post(contact) {
+    try {
+      let data = JSON.stringify(contact);
+      await fetch("/api/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: data
+      });
+    } catch(error) {
+      console.log("Could not post contact:\n" + error);
+      return null;
+    }
+  }
 
+  async put(contact) {
+    try {
+      let data = JSON.stringify(contact);
+      await fetch(`/api/contacts/${contact.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: data
+      });
+    } catch(error) {
+      console.log("Could not post contact:\n" + error);
+      return null;
+    }
+  }
+
+  async delete(id) {
+    try {
+      await fetch(`/api/contacts/${id}`, {
+        method: "DELETE"
+      });
+    } catch(error) {
+      console.log("Could not delete contact:\n" + error);
+      return null;
+    }
   }
 }
 
@@ -67,7 +112,7 @@ class ContactList {
   }
 
   static makeList() {
-    let data = API.get();
+    let data = API.getAll();
     let list = new ContactList();
 
     data.forEach(contactData => {
@@ -120,7 +165,7 @@ class ContactList {
 
   findByString(string) {
     let filtered = this.contacts.filter(contact => {
-      
+
     });
 
     return filtered;
