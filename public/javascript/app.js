@@ -53,6 +53,7 @@ class API {
   }
 }
 
+
 class Contact {
   constructor(id, full_name, email, phone_number, tags) {
     this.id = id;
@@ -66,34 +67,26 @@ class Contact {
     return Object.assign(new Contact(), contactData);
   }
 
-  getName() {
-    return this.full_name;
-  }
-
-  setName(newName) {
-    this.full_name = newName;
-  }
-
-  getEmail() {
-    return this.email;
-  }
-
-  setEmail(newEmail) {
-    this.email = newEmail;
-  }
-
-  getPhone() {
-    return this.phone_number;
-  }
-
-  setPhone(newNumber) {
-    this.phone_number = newNumber;
+  getDetails() {
+    return Object.assign({}, this);
   }
 
   getTags() {
     if (!this.tags) return [];
 
     return this.tags.split(",");
+  }
+
+  setName(newName) {
+    this.full_name = newName;
+  }
+
+  setEmail(newEmail) {
+    this.email = newEmail;
+  }
+
+  setPhone(newNumber) {
+    this.phone_number = newNumber;
   }
 
   setTags(tagString) {
@@ -105,6 +98,7 @@ class Contact {
                           ).join(",");
   }
 }
+
 
 class ContactList {
   constructor() {
