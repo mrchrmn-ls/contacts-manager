@@ -5,14 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="javascript/app.js"></script>
+  <script type="module" src="javascript/app.js"></script>
 
   <title>Contact Manager</title>
 </head>
 <body>
+<header>
+  <h1>Contact Manager</h1>
+  <h2>A little practice for the grand JS239 take-home project</h2>
+</header>
+<nav>
+  <form action="#" id="search">
+    <dl>
+      <dt>
+        <label for="searchTerm">Search contacts:</label>
+      </dt>
+      <dd>
+        <input type="text" id="searchTerm" name="searchTerm">
+      </dd>
+    </dl>
+    <button type="button" id="new">New Contact</button>
+  </form>
+</nav>
+<content>
+  <div class="contact" id="{{id}}">
+    <h3>{{full_name}}</h3>
+    <dl>
+      <dt>Phone:</dt>
+      <dd>{{phone_number}}</dd>
+      <dt>Email:</dt>
+      <dd>{{email}}</dd>
+      <dt>Tags:</dt>
+      <dd>{{tags}}</dd>
+    </dl>
+    <button type="button" class="edit">Edit</button>
+    <button type="button" class="delete">Delete</button>
+  </div>
+</content>
+<aside id="addEdit">
+  <h1>Add / Edit Contact</h1>
+  <form action="#" id="contactForm">
+    <dl>
 
+    </dl>
+  </form>
+</aside>
 </body>
 </html>
