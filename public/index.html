@@ -8,7 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="module" src="javascript/app.js"></script>
 
-  <title>Contact Manager</title>
+  <title>Contacts Manager</title>
 </head>
 <body>
 <header>
@@ -24,32 +24,74 @@
       <dd>
         <input type="text" id="searchTerm" name="searchTerm">
       </dd>
+      <dt>
+        Search by tags:
+      </dt>
+      <dd>
+        <span>
+          <a href="#">#{{tag}}</a>
+        </span> 
+        <span>
+          <a href="#">#{{tag}}</a>
+        </span>  
+      </dd>
     </dl>
-    <button type="button" id="new">New Contact</button>
   </form>
+  <button type="button" id="new">New Contact</button>
 </nav>
-<content>
-  <div class="contact" id="{{id}}">
-    <h3>{{full_name}}</h3>
-    <dl>
-      <dt>Phone:</dt>
-      <dd>{{phone_number}}</dd>
-      <dt>Email:</dt>
-      <dd>{{email}}</dd>
-      <dt>Tags:</dt>
-      <dd>{{tags}}</dd>
-    </dl>
-    <button type="button" class="edit">Edit</button>
-    <button type="button" class="delete">Delete</button>
-  </div>
-</content>
-<aside id="addEdit">
-  <h1>Add / Edit Contact</h1>
-  <form action="#" id="contactForm">
-    <dl>
 
-    </dl>
-  </form>
-</aside>
+<content>
+
+  <section id="contactList">
+    <div class="contact" id="{{id}}">
+      <h3>{{full_name}}</h3>
+      <dl>
+        <dt>Phone:</dt>
+        <dd>{{phone_number}}</dd>
+        <dt>Email:</dt>
+        <dd>{{email}}</dd>
+        <dt>Tags:</dt>
+        <dd>{{tags}}</dd>
+      </dl>
+      <button type="button" class="edit">Edit</button>
+      <button type="button" class="delete">Delete</button>
+    </div>
+  </section>
+
+  <aside>
+    <p>
+      {{Status Message}}
+    </p>
+  </aside>
+
+  <section id="addEdit">
+    <h1>{{Add / Edit Contact}}</h1>
+    <form action="#" id="contactForm">
+      <dl>
+        <dt>
+          <label for="full_name">Full name:</label>
+        </dt>
+        <dd>
+          <input type="text" name="full_name" value="{{full_name}}" required>
+        </dd>
+        <dt>
+          <label for="phone_number">Phone number:</label>
+        </dt>
+        <dd>
+          <input type="tel" name="phone_number" value="{{phone_number}}" pattern="[\s+-()\d]">
+        </dd>
+        <dt>
+          <label for="email">Email address:</label>
+        </dt>
+        <dd>
+          <input type="text" name="email" value="{{email}}" pattern=".+@.+">
+        </dd>
+      </dl>
+      <button type="submit">Save</button>
+      <button type="button">Cancel</button>
+    </form>
+  </section>
+
+</content>
 </body>
 </html>
