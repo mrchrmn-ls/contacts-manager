@@ -1,5 +1,59 @@
-import { Contact } from "./contact.js";
 import { API } from "./api.js";
+
+
+class Contact {
+  constructor(id, full_name, email, phone_number, tags) {
+    this.id = id;
+    this.full_name = full_name;
+    this.email = email;
+    this.phone_number = phone_number;
+    this.tags = tags;
+  }
+
+  // restore proper Contact object from JSON data
+  static fromData(contactData) {
+    return Object.assign(new Contact(), contactData);
+  }
+
+
+  // Getters //
+
+  getDetails() {
+    return Object.assign({}, this);
+  }
+
+  getTags() {
+    if (!this.tags) return [];
+
+    return this.tags.split(",");
+  }
+
+
+  // Setters //
+
+  // converts input string into properly formatted string
+  setTags(inputString) {
+    this.tags = Array.from(new Set(inputString.split(",")
+                                            .map(tag => tag.toLowerCase()
+                                                           .trim()
+                                                )
+                                  )
+                          ).join(",");
+  }
+
+  setName(newName) {
+    this.full_name = newName;
+  }
+
+  setEmail(newEmail) {
+    this.email = newEmail;
+  }
+
+  setPhone(newNumber) {
+    this.phone_number = newNumber;
+  }
+};
+
 
 export class ContactList {
   constructor() {
@@ -76,7 +130,7 @@ export class ContactList {
   findByString(string) {
     string = string.toLowerCase();
 
-    if (string.length === 0 || !string) return this.getAll();
+    if (!string || string.length === 0) return this.getAll();
 
     let filtered = this.contacts.filter(contact => {
       if (contact.full_name.toLowerCase().includes(string) ||
@@ -91,7 +145,7 @@ export class ContactList {
   }
 
   findByTags(tagArray) {
-    if (tagArray.length === 0 || !tagArray) return this.getAllTags();
+    if (!tagArray || tagArray.length === 0) return this.getAll();
 
     let filtered = this.contacts.filter(contact => {
       return tagArray.some(tag => contact.getTags().includes(tag));

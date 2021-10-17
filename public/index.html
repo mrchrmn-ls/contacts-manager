@@ -23,9 +23,10 @@
         <label for="searchTerm">Search contacts:</label>
       </dt>
       <dd>
-        <input type="text" id="searchTerm" name="searchTerm">
+        <input type="text" id="searchInput" name="searchTerm">
       </dd>
     </dl>
+    <button type="reset">Clear</button>
   </form>
   <p>
     Search by tags:
@@ -39,7 +40,7 @@
       {{/each}}
     </script>
   </p>
-  <button type="button" id="new">New Contact</button>
+  <button type="button" id="newButton">New Contact</button>
 </nav>
 
 <content>
