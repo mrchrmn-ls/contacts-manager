@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="module" src="javascript/app.js"></script>
 
@@ -29,7 +30,7 @@
   <p>
     Search by tags:
   </p>
-  <p>
+  <p id="tagList">
     <script id="taglist-tmpl" type="text/x-handlebars-template">
       {{#each tags}}
         <span>
@@ -46,7 +47,7 @@
   <section id="contactList">
     <script id="contactlist-tmpl" type="text/x-handlebars-template">
       {{#each contacts}}
-      <div class="contact" id="{{this.id}}">
+      <div class="contact" id="{{id}}">
         <h3>{{full_name}}</h3>
         <dl>
           <dt>Phone:</dt>

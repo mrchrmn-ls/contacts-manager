@@ -1,15 +1,15 @@
 export class API {
-  async getAll() {
+  static async getAll() {
     try {
       let response = await fetch("/api/contacts");
-      return response.json();
+      return await response.json();
     } catch(error) {
       console.log("Could not get contacts:\n" + error);
       return null;
     }
   }
 
-  async post(contact) {
+  static async post(contact) {
     try {
       let data = JSON.stringify(contact);
       await fetch("/api/contacts", {
@@ -25,7 +25,7 @@ export class API {
     }
   }
 
-  async put(contact) {
+  static async put(contact) {
     try {
       let data = JSON.stringify(contact);
       await fetch(`/api/contacts/${contact.id}`, {
@@ -41,7 +41,7 @@ export class API {
     }
   }
 
-  async delete(id) {
+  static async delete(id) {
     try {
       await fetch(`/api/contacts/${id}`, {
         method: "DELETE"

@@ -1,10 +1,12 @@
-import { Contact } from "./contact";
+import { Contact } from "./contact.js";
+import { API } from "./api.js";
 
 export class ContactList {
   constructor() {
     this.contacts = [];
   }
 
+  // restore proper ContactList object from JSON data
   static async makeList() {
     let data = await API.getAll();
     let list = new ContactList();
@@ -15,6 +17,9 @@ export class ContactList {
 
     return list;
   }
+
+
+  // API calls //
 
   async add(contactData) {
     let contact = Contact.fromData(contactData);
@@ -28,7 +33,7 @@ export class ContactList {
     contact.setName(contactData.full_name);
     contact.setEmail(contactData.email);
     contact.setPhone(contactData.phone_number);
-    contact.setFormattedTagString(contactData.tags);
+    contact.setTags(contactData.tags);
 
     await API.put(contact);
   }
@@ -39,6 +44,9 @@ export class ContactList {
     await API.delete(id);
   }
 
+
+  // Helpers //
+
   indexOf(id) {
     let index;
     this.contacts.forEach((contact, idx) => {
@@ -46,6 +54,14 @@ export class ContactList {
     });
     return index;
   }
+
+  generateId() {
+    let highestId = this.contacts.map(contact => contact.id).sort((a, b) => Number(b) - Number(a))[0];
+    return Number(highestId) + 1;
+  }
+
+
+  // Finding contacts //
 
   findById(id) {
     let filtered = this.contacts.filter(contact => contact.id === id);
@@ -58,29 +74,54 @@ export class ContactList {
   }
 
   findByString(string) {
+    string = string.toLowerCase();
+
+    if (string.length === 0 || !string) return this.getAll();
+
     let filtered = this.contacts.filter(contact => {
-      if (contact.full_name.includes(string) ||
-          contact.email.includes(string) ||
-          contact.phone_number.includes(string) ||
-          contact.tags.includes(string)) return true;
+      if (contact.full_name.toLowerCase().includes(string) ||
+          contact.email.toLowerCase().includes(string) ||
+          contact.phone_number.toLowerCase().includes(string)) return true;
+      if (contact.tags) {
+        if (contact.tags && contact.tags.includes(string)) return true;
+      }
     });
 
     return filtered;
   }
 
   findByTags(tagArray) {
+    if (tagArray.length === 0 || !tagArray) return this.getAllTags();
+
     let filtered = this.contacts.filter(contact => {
-      return tagArray.some(tag => contact.getTags.includes(tag));
-    })
+      return tagArray.some(tag => contact.getTags().includes(tag));
+    });
+
+    return filtered;
   }
+
+
+  // Getters //
 
   getAll() {
     return this.contacts.slice();
   }
 
+  getVisible(searchString, searchTags) {
+    if (!searchString || searchString.length === 0) return this.findByTags(searchTags);
+
+    if (!searchTags || searchTags.length === 0) return this.findByString(searchString);
+
+    return this.findByString(searchString).findByTags(searchTags);
+  }
+
+  getVisibleIds(searchString, searchTags) {
+    return this.getVisible(searchString, searchTags).map(contact => contact.id);
+  }
+
   getAllTags() {
     let allTags = this.contacts.reduce((tags, contact) => {
-      tags.concat(contact.getTags())
+      return tags.concat(contact.getTags())
     }, []);
 
     return Array.from(new Set(allTags));
