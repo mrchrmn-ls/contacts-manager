@@ -1,5 +1,5 @@
-import { ContactList } from "./contact-list.js";
-import { UI } from "./ui-handle.js"
+import { ContactList } from "./contactlist.js";
+import { UI } from "./ui.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
 
