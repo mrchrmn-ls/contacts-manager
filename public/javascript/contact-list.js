@@ -127,19 +127,27 @@ export class ContactList {
     }
   }
 
-  findByString(string) {
+  findByString(string, namesOnly) {
     string = string.toLowerCase();
 
     if (!string || string.length === 0) return this.getAll();
 
-    let filtered = this.contacts.filter(contact => {
-      if (contact.full_name.toLowerCase().includes(string) ||
-          contact.email.toLowerCase().includes(string) ||
-          contact.phone_number.toLowerCase().includes(string)) return true;
-      if (contact.tags) {
-        if (contact.tags && contact.tags.includes(string)) return true;
-      }
-    });
+    let filtered
+
+    if (namesOnly) {
+      filtered = this.contacts.filter(contact => {
+        if (contact.full_name.toLowerCase().includes(string)) return true;
+      });  
+    } else {
+      filtered = this.contacts.filter(contact => {
+        if (contact.full_name.toLowerCase().includes(string) ||
+            contact.email.toLowerCase().includes(string) ||
+            contact.phone_number.toLowerCase().includes(string)) return true;
+        if (contact.tags) {
+          if (contact.tags.includes(string)) return true;
+        }
+      });  
+    }
 
     return filtered;
   }
@@ -161,16 +169,18 @@ export class ContactList {
     return this.contacts.slice();
   }
 
-  getVisible(searchString, searchTags) {
-    if (!searchString || searchString.length === 0) return this.findByTags(searchTags);
+  getVisible(searchString, searchTags, namesOnly) {
+    // if (!searchString || searchString.length === 0) return this.findByTags(searchTags);
 
-    if (!searchTags || searchTags.length === 0) return this.findByString(searchString);
+    // if (!searchTags || searchTags.length === 0) return this.findByString(searchString);
 
-    return this.findByString(searchString).findByTags(searchTags);
+    return this.findByString(searchString, namesOnly)
+               .filter(contact => this.findByTags(searchTags)
+                                      .includes(contact));
   }
 
-  getVisibleIds(searchString, searchTags) {
-    return this.getVisible(searchString, searchTags).map(contact => contact.id);
+  getVisibleIds(searchString, searchTags, namesOnly) {
+    return this.getVisible(searchString, searchTags, namesOnly).map(contact => contact.id);
   }
 
   getAllTags() {

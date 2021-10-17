@@ -25,8 +25,15 @@
       <dd>
         <input type="text" id="searchInput" name="searchTerm">
       </dd>
+      <dt>
+        <label for="searchScope">Search for</label>
+      </dt>
+      <dd id="searchScope">
+        <input type="radio" name="searchScope" id="namesOnly" checked="checked"><label for="namesOnly">names only</label>
+        <input type="radio" name="searchScope" id="everything"><label for="everything">everything (name, phone, email, tags)</label>
+      </dd>
     </dl>
-    <button type="reset">Clear</button>
+    <button type="reset" id="clearButton">Clear</button>
   </form>
   <p>
     Search by tags:
@@ -35,7 +42,7 @@
     <script id="taglist-tmpl" type="text/x-handlebars-template">
       {{#each tags}}
         <span>
-          <a href="#">#{{this}}</a>
+          <a href="#" class="tag">{{this}}</a>
         </span>
       {{/each}}
     </script>
@@ -43,64 +50,60 @@
   <button type="button" id="newButton">New Contact</button>
 </nav>
 
-<content>
+<aside>
+  <p id="status">
+  </p>
+</aside>
 
-  <section id="contactList">
-    <script id="contactlist-tmpl" type="text/x-handlebars-template">
-      {{#each contacts}}
-      <div class="contact" id="{{id}}">
-        <h3>{{full_name}}</h3>
-        <dl>
-          <dt>Phone:</dt>
-          <dd>{{phone_number}}</dd>
-          <dt>Email:</dt>
-          <dd>{{email}}</dd>
-          <dt>Tags:</dt>
-          <dd>{{tags}}</dd>
-        </dl>
-        <button type="button" class="edit">Edit</button>
-        <button type="button" class="delete">Delete</button>
-      </div>
-      {{/each}}
-    </script>
-  </section>
+<section id="contactList">
+  <script id="contactlist-tmpl" type="text/x-handlebars-template">
+    {{#each contacts}}
+    <div class="contact" id="{{id}}">
+      <h3>{{full_name}}</h3>
+      <dl>
+        <dt>Phone:</dt>
+        <dd>{{phone_number}}</dd>
+        <dt>Email:</dt>
+        <dd>{{email}}</dd>
+        <dt>Tags:</dt>
+        <dd>{{tags}}</dd>
+      </dl>
+      <button type="button" class="edit">Edit</button>
+      <button type="button" class="delete">Delete</button>
+    </div>
+    {{/each}}
+  </script>
+</section>
 
-  <aside>
-    <p>
-      {{Status Message}}
-    </p>
-  </aside>
+<section id="addEdit">
+  <script id="contactform-tmpl" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    <form action="#" id="contactForm">
+      <dl>
+        <dt>
+          <label for="full_name">Full name:</label>
+        </dt>
+        <dd>
+          <input type="text" name="full_name" value="{{full_name}}" required>
+        </dd>
+        <dt>
+          <label for="phone_number">Phone number:</label>
+        </dt>
+        <dd>
+          <input type="tel" name="phone_number" value="{{phone_number}}" pattern="[\s+-()\d]">
+        </dd>
+        <dt>
+          <label for="email">Email address:</label>
+        </dt>
+        <dd>
+          <input type="text" name="email" value="{{email}}" pattern=".+@.+">
+        </dd>
+      </dl>
+      <button type="submit">Save</button>
+      <button type="button">Cancel</button>
+    </form>
+  </script>
+</section>
 
-  <section id="addEdit">
-    <script id="contactform-tmpl" type="text/x-handlebars-template">
-      <h1>{{title}}</h1>
-      <form action="#" id="contactForm">
-        <dl>
-          <dt>
-            <label for="full_name">Full name:</label>
-          </dt>
-          <dd>
-            <input type="text" name="full_name" value="{{full_name}}" required>
-          </dd>
-          <dt>
-            <label for="phone_number">Phone number:</label>
-          </dt>
-          <dd>
-            <input type="tel" name="phone_number" value="{{phone_number}}" pattern="[\s+-()\d]">
-          </dd>
-          <dt>
-            <label for="email">Email address:</label>
-          </dt>
-          <dd>
-            <input type="text" name="email" value="{{email}}" pattern=".+@.+">
-          </dd>
-        </dl>
-        <button type="submit">Save</button>
-        <button type="button">Cancel</button>
-      </form>
-    </script>
-  </section>
-
-</content>
 </body>
 </html>

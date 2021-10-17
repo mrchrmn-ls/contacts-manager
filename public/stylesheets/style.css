@@ -4,4 +4,22 @@
 
 .active {
   font-weight: bold;
+  border: 1px solid;
+}
+
+header {
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+
+#contactList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contact {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid;
 }
