@@ -35,19 +35,21 @@
     </dl>
     <button type="reset" id="clearButton">Clear</button>
   </form>
-  <p>
-    Search by tags:
-  </p>
-  <p id="tagList">
-    <script id="taglist-tmpl" type="text/x-handlebars-template">
-      {{#each tags}}
-        <span>
-          <a href="#" class="tag">{{this}}</a>
-        </span>
-      {{/each}}
-    </script>
-  </p>
-  <button type="button" id="newButton">New Contact</button>
+  <div id="searchTags">
+    <p>
+      Search by tags:
+    </p>
+    <p id="tagList">
+      <script id="taglist-tmpl" type="text/x-handlebars-template">
+        {{#each tags}}
+          <span>
+            <a href="#" class="tag">{{this}}</a>
+          </span>
+        {{/each}}
+      </script>
+    </p>
+  </div>
+  <!-- <button type="button" id="newButton">New Contact</button> -->
 </nav>
 
 <aside>
@@ -75,7 +77,7 @@
   </script>
 </section>
 
-<section id="addEdit">
+<section id="addEdit" class="hidden">
   <script id="contactform-tmpl" type="text/x-handlebars-template">
     <h1>{{title}}</h1>
     <form action="#" id="contactForm">
@@ -99,6 +101,7 @@
           <input type="text" name="email" value="{{email}}" pattern=".+@.+">
         </dd>
       </dl>
+      <input type="hidden" name="id" value={{id}}>
       <button type="submit">Save</button>
       <button type="button">Cancel</button>
     </form>

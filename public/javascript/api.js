@@ -19,6 +19,7 @@ export class API {
         },
         body: data
       });
+      return true;
     } catch(error) {
       console.log("Could not post contact:\n" + error);
       return null;
@@ -35,6 +36,7 @@ export class API {
         },
         body: data
       });
+      return true;
     } catch(error) {
       console.log("Could not post contact:\n" + error);
       return null;
@@ -46,6 +48,7 @@ export class API {
       await fetch(`/api/contacts/${id}`, {
         method: "DELETE"
       });
+      return true;
     } catch(error) {
       console.log("Could not delete contact:\n" + error);
       return null;

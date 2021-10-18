@@ -4,9 +4,11 @@ class Handle {
     ui.elements.tagList.addEventListener("click", Handle.tagClick.bind(ui));
     ui.elements.clearButton.addEventListener("click", Handle.updateSearchResults.bind(ui));
     ui.elements.searchScope.addEventListener("click", Handle.updateSearchResults.bind(ui));
+    ui.elements.contactList.addEventListener("click", Handle.contactClick.bind(ui))
   }
 
-  // "this" references UI instance
+  // Don't forget: "this" usually references UI instance
+
   static tagClick(event) {
     event.preventDefault();
     event.target.classList.toggle("active");
@@ -16,12 +18,18 @@ class Handle {
                               this.elements.namesOnly.checked);
   }
 
-  // "this" references UI instance
   static updateSearchResults() {
     setTimeout(() => { 
       this.displaySearchResults(this.elements.searchInput.value, 
                                 this.elements.namesOnly.checked) 
     }, 1);
+  }
+
+  static contactClick(event) {
+    event.preventDefault();
+    if (event.target.className === "delete") {
+      alert("Are you sure?");
+    }
   }
 }
 
@@ -73,7 +81,10 @@ export class UI {
 
     contactDivs.forEach(div => {
       div.classList.remove("hidden");
-      if (!visibleIds.includes(Number(div.id))) div.classList.add("hidden");
+
+      if (!visibleIds.includes(Number(div.id))) {
+        div.classList.add("hidden");
+      }
     });
 
     if (this.searchTags.length === 0 && searchString === "") {
@@ -84,7 +95,6 @@ export class UI {
   }
 
   displayStatus(message) {
-    console.log(message);
     this.elements.status.textContent = message;
   }
 

@@ -15,9 +15,6 @@ class Contact {
     return Object.assign(new Contact(), contactData);
   }
 
-
-  // Getters //
-
   getDetails() {
     return Object.assign({}, this);
   }
@@ -28,16 +25,11 @@ class Contact {
     return this.tags.split(",");
   }
 
-
-  // Setters //
-
   // converts input string into properly formatted string
   setTags(inputString) {
     this.tags = Array.from(new Set(inputString.split(",")
-                                            .map(tag => tag.toLowerCase()
-                                                           .trim()
-                                                )
-                                  )
+                                              .map(tag => tag.toLowerCase()
+                                                             .trim()))
                           ).join(",");
   }
 
@@ -73,8 +65,6 @@ export class ContactList {
   }
 
 
-  // API calls //
-
   async add(contactData) {
     let contact = Contact.fromData(contactData);
     this.contacts.push(contact);
@@ -99,8 +89,6 @@ export class ContactList {
   }
 
 
-  // Helpers //
-
   indexOf(id) {
     let index;
     this.contacts.forEach((contact, idx) => {
@@ -114,8 +102,6 @@ export class ContactList {
     return Number(highestId) + 1;
   }
 
-
-  // Finding contacts //
 
   findById(id) {
     let filtered = this.contacts.filter(contact => contact.id === id);
@@ -163,24 +149,8 @@ export class ContactList {
   }
 
 
-  // Getters //
-
   getAll() {
     return this.contacts.slice();
-  }
-
-  getVisible(searchString, searchTags, namesOnly) {
-    // if (!searchString || searchString.length === 0) return this.findByTags(searchTags);
-
-    // if (!searchTags || searchTags.length === 0) return this.findByString(searchString);
-
-    return this.findByString(searchString, namesOnly)
-               .filter(contact => this.findByTags(searchTags)
-                                      .includes(contact));
-  }
-
-  getVisibleIds(searchString, searchTags, namesOnly) {
-    return this.getVisible(searchString, searchTags, namesOnly).map(contact => contact.id);
   }
 
   getAllTags() {
@@ -189,5 +159,15 @@ export class ContactList {
     }, []);
 
     return Array.from(new Set(allTags));
+  }
+
+  getVisible(searchString, searchTags, namesOnly) {
+    return this.findByString(searchString, namesOnly)
+               .filter(contact => this.findByTags(searchTags)
+                                      .includes(contact));
+  }
+
+  getVisibleIds(searchString, searchTags, namesOnly) {
+    return this.getVisible(searchString, searchTags, namesOnly).map(contact => contact.id);
   }
 };
