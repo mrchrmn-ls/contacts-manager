@@ -84,7 +84,7 @@ export class ContactList {
 
   async delete(id) {
     let index = this.indexOf(id);
-    this.contacts.slice(index, 1);
+    this.contacts.splice(index, 1);
     await API.delete(id);
   }
 
@@ -128,7 +128,7 @@ export class ContactList {
       filtered = this.contacts.filter(contact => {
         if (contact.full_name.toLowerCase().includes(string) ||
             contact.email.toLowerCase().includes(string) ||
-            contact.phone_number.toLowerCase().includes(string)) return true;
+            contact.phone_number?.toLowerCase().includes(string)) return true;
         if (contact.tags) {
           if (contact.tags.includes(string)) return true;
         }
@@ -148,7 +148,7 @@ export class ContactList {
     return filtered;
   }
 
-
+  
   getAll() {
     return this.contacts.slice();
   }

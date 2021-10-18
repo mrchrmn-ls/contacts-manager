@@ -1,14 +1,18 @@
-.hidden {
-  display: none;
-}
-
 .active {
   font-weight: bold;
   border: 1px solid;
 }
 
+.smaller {
+  font-size: smaller;
+}
+
+body {
+  background-color: lightgray;
+}
+
 header {
-  background-color: black;
+  background-color: violet;
   color: white;
   padding: 10px;
 }
@@ -23,3 +27,8 @@ header {
   margin: 10px;
   border: 1px solid;
 }
+
+.hidden {
+  display: none !important;
+}
+
