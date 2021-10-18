@@ -39,9 +39,10 @@ export class Handle {
     event.preventDefault();
     let id = this.contactList.generateId();
 
-    this.renderAddOrEdit(id);
+    this.renderAddOrEdit(id);    
     this.hide(this.elements.contactList);
     this.show(this.elements.addOrEdit);
+    document.getElementById("fullName").focus();
   }
 
   static async contactClick(event) {
@@ -63,6 +64,7 @@ export class Handle {
         this.renderAddOrEdit(id);
         this.hide(this.elements.contactList);
         this.show(this.elements.addOrEdit);
+        document.getElementById("fullName").focus();
         break;
     }
   }
