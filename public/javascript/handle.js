@@ -87,6 +87,7 @@ export class Handle {
         }
 
         this.elements.addOrEdit.innerHTML = "";
+        this.elements.searchInput.value = "";
         this.renderContactList();
         this.renderTagList();
         this.hide(this.elements.addOrEdit);
