@@ -1,58 +1,4 @@
-class Handle {
-  static addListeners(ui) {
-    ui.elements.searchInput.addEventListener("input", Handle.updateSearchResults.bind(ui));
-    ui.elements.searchInput.addEventListener("keydown", Handle.searchInputKeydown);
-    ui.elements.tagList.addEventListener("click", Handle.tagClick.bind(ui));
-    ui.elements.clearButton.addEventListener("click", Handle.updateSearchResults.bind(ui));
-    ui.elements.searchScope.addEventListener("click", Handle.updateSearchResults.bind(ui));
-    ui.elements.contactList.addEventListener("click", Handle.contactClick.bind(ui))
-  }
-
-  static searchInputKeydown(event) {
-    if (event.key === "Enter") event.preventDefault();
-  }
-
-  // Don't forget: In method below this line "this" references UI instance
-
-  static tagClick(event) {
-    event.preventDefault();
-    event.target.classList.toggle("active");
-    this.searchTags = [...this.elements.tags].filter(tag => tag.classList.contains("active"))
-                                             .map(tag => tag.textContent);
-    this.displaySearchResults(this.elements.searchInput.value,
-                              this.elements.namesOnly.checked);
-  }
-
-  static updateSearchResults() {
-    setTimeout(() => { 
-      this.displaySearchResults(this.elements.searchInput.value, 
-                                this.elements.namesOnly.checked) 
-    }, 1);
-  }
-
-  static async contactClick(event) {
-    event.preventDefault();
-    let id;
-
-    switch (event.target.className) {
-      case "delete":
-        id = event.target.parentElement.id;
-        if (confirm(`Are you sure you want to delete the contact? This cannot be undone.`)) {
-          await this.contactList.delete(id);
-          this.renderContactList();
-          this.renderTagList();
-        }
-        break;
-
-      case "edit":
-        id = event.target.parentElement.id;
-        this.renderContactForm("edit", id);
-        this.hide(this.elements.contactList);
-        this.show(this.elements.addEdit);
-        break;
-    }
-  }
-}
+import { Handle } from "./handle.js";
 
 
 export class UI {
@@ -79,7 +25,7 @@ export class UI {
       namesOnly: document.getElementById("namesOnly"),
       status: document.getElementById("status"),
       searchTags: document.getElementById("searchTags"),
-      contactForm: document.getElementById("addEdit")
+      addOrEdit: document.getElementById("addOrEdit")
     }
   }
 
@@ -87,7 +33,7 @@ export class UI {
     return {
       contactList: Handlebars.compile(document.getElementById("contactlist-tmpl").innerHTML),
       tagList: Handlebars.compile(document.getElementById("taglist-tmpl").innerHTML),
-      contactForm: Handlebars.compile(documenr.getElementById("contactform-tmpl").innerHTML)
+      addOrEdit: Handlebars.compile(document.getElementById("addoredit-tmpl").innerHTML)
     }
   }
 
@@ -116,8 +62,19 @@ export class UI {
     }
   }
 
-  renderContactForm(type, id) {
-    
+  renderAddOrEdit(id) {
+    let contact = this.contactList.findById(id);
+    let options = {};
+
+    if (contact) {
+      Object.assign(options, contact);
+      this.displayStatus("Please edit and save the contact details.");
+    } else {
+      options["id"] = id;
+      this.displayStatus("Please enter and save details for the new contact.");
+    }
+
+    this.elements.addOrEdit.innerHTML = this.hb.addOrEdit(options);
   }
 
 

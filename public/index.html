@@ -14,7 +14,7 @@
 <body>
 <header>
   <h1>Contacts Manager</h1>
-  <h2>Managing those contacts like its 1996 <span class="smaller">(but better)</span></h2>
+  <h2>managing those contacts like its 1996 <span class="smaller">(but better)</span></h2>
 </header>
 <nav>
   <form id="search">
@@ -57,8 +57,8 @@
 <main>
 
   <aside>
-    <p id="status">
-    </p>
+    <h4 id="status">
+    </h4>
   </aside>
 
   <section id="contactList">
@@ -93,10 +93,8 @@
     </script>
   </section>
 
-  <section id="contactForm" class="hidden">
-    HELLO
-
-    <script id="contactForm-tmpl" type="text/x-handlebars-template">
+  <section id="addOrEdit" class="hidden">
+    <script id="addoredit-tmpl" type="text/x-handlebars-template">
       <h1>{{title}}</h1>
       <form action="#" id="contactForm">
         <dl>
@@ -104,24 +102,30 @@
             <label for="full_name">Full name:</label>
           </dt>
           <dd>
-            <input type="text" name="full_name" value="{{full_name}}" required>
-          </dd>
-          <dt>
-            <label for="phone_number">Phone number:</label>
-          </dt>
-          <dd>
-            <input type="tel" name="phone_number" value="{{phone_number}}" pattern="[\s+-()\d]">
+            <input type="text" name="full_name" id="fullName" value="{{full_name}}" required>
           </dd>
           <dt>
             <label for="email">Email address:</label>
           </dt>
           <dd>
-            <input type="text" name="email" value="{{email}}" pattern=".+@.+">
+            <input type="text" name="email" id="email" value="{{email}}" pattern=".+@.+">
+          </dd>
+          <dt>
+            <label for="phone_number">Phone number:</label>
+          </dt>
+          <dd>
+            <input type="tel" name="phone_number" id="phoneNumber" value="{{phone_number}}" pattern="[\s+\-()\d]">
+          </dd>
+          <dt>
+            <label for="tags">Tags (separated by commas):</label>
+          </dt>
+          <dd>
+            <input type="text" name="tags" id="tags" value="{{tags}}">
           </dd>
         </dl>
-        <input type="hidden" name="id" value={{id}}>
-        <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <input type="hidden" name="id" id="id" value={{id}}>
+        <button type="submit" class="save">Save</button>
+        <button type="button" class="cancel">Cancel</button>
       </form>
     </script>
   </section>

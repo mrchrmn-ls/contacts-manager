@@ -4,7 +4,7 @@
     "full_name": "Naveed Fida",
     "email": "nf@example.com",
     "phone_number": "12345678901",
-    "tags": "work,friend"
+    "tags": null
   },
   {
     "id": 2,
@@ -25,6 +25,6 @@
     "full_name": "Marc Hermann",
     "email": "mh@hrmn.dev",
     "phone_number": null,
-    "tags": null
+    "tags": "family,sport"
   }
 ]
