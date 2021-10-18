@@ -13,11 +13,11 @@
 </head>
 <body>
 <header>
-  <h1>Contact Manager</h1>
-  <h2>A little practice for the grand JS239 take-home project</h2>
+  <h1>Contacts Manager</h1>
+  <h2>Managing those contacts like its 1996 <span class="smaller">(but better)</span></h2>
 </header>
 <nav>
-  <form action="#" id="search">
+  <form id="search">
     <dl>
       <dt>
         <label for="searchTerm">Search contacts:</label>
@@ -39,74 +39,98 @@
     <p>
       Search by tags:
     </p>
-    <p id="tagList">
-      <script id="taglist-tmpl" type="text/x-handlebars-template">
-        {{#each tags}}
-          <span>
-            <a href="#" class="tag">{{this}}</a>
-          </span>
-        {{/each}}
-      </script>
+    <p>
+      <span id="tagList">
+        <script id="taglist-tmpl" type="text/x-handlebars-template">
+          {{#each tags}}
+            <span>
+              <a href="#" class="tag">{{this}}</a>
+            </span>
+          {{/each}}
+        </script>
+      </span>
     </p>
   </div>
-  <!-- <button type="button" id="newButton">New Contact</button> -->
+  <button type="button" id="newButton">New Contact</button>
 </nav>
 
-<aside>
-  <p id="status">
-  </p>
-</aside>
+<main>
 
-<section id="contactList">
-  <script id="contactlist-tmpl" type="text/x-handlebars-template">
-    {{#each contacts}}
-    <div class="contact" id="{{id}}">
-      <h3>{{full_name}}</h3>
-      <dl>
-        <dt>Phone:</dt>
-        <dd>{{phone_number}}</dd>
-        <dt>Email:</dt>
-        <dd>{{email}}</dd>
-        <dt>Tags:</dt>
-        <dd>{{tags}}</dd>
-      </dl>
-      <button type="button" class="edit">Edit</button>
-      <button type="button" class="delete">Delete</button>
-    </div>
-    {{/each}}
-  </script>
-</section>
+  <aside>
+    <p id="status">
+    </p>
+  </aside>
 
-<section id="addEdit" class="hidden">
-  <script id="contactform-tmpl" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
-    <form action="#" id="contactForm">
-      <dl>
-        <dt>
-          <label for="full_name">Full name:</label>
-        </dt>
-        <dd>
-          <input type="text" name="full_name" value="{{full_name}}" required>
-        </dd>
-        <dt>
-          <label for="phone_number">Phone number:</label>
-        </dt>
-        <dd>
-          <input type="tel" name="phone_number" value="{{phone_number}}" pattern="[\s+-()\d]">
-        </dd>
-        <dt>
-          <label for="email">Email address:</label>
-        </dt>
-        <dd>
-          <input type="text" name="email" value="{{email}}" pattern=".+@.+">
-        </dd>
-      </dl>
-      <input type="hidden" name="id" value={{id}}>
-      <button type="submit">Save</button>
-      <button type="button">Cancel</button>
-    </form>
-  </script>
-</section>
+  <section id="contactList">
+    <script id="contactlist-tmpl" type="text/x-handlebars-template">
+      {{#each contacts}}
+      <div class="contact" id="{{id}}">
+        <h3>{{full_name}}</h3>
+        <dl>
+          <dt>Email:</dt>
+          <dd>{{email}}</dd>
+          <dt>Phone:</dt>
+          <dd>
+            {{#if phone_number}}
+              {{phone_number}}
+            {{else}}
+            -
+            {{/if}}
+          </dd>
+          <dt>Tags:</dt>
+          <dd>
+            {{#if tags}}
+              {{tags}}
+            {{else}}
+            -
+            {{/if}}
+          </dd>
+        </dl>
+        <button type="button" class="edit">Edit</button>
+        <button type="button" class="delete">Delete</button>
+      </div>
+      {{/each}}
+    </script>
+  </section>
+
+  <section id="contactForm" class="hidden">
+    HELLO
+
+    <script id="contactForm-tmpl" type="text/x-handlebars-template">
+      <h1>{{title}}</h1>
+      <form action="#" id="contactForm">
+        <dl>
+          <dt>
+            <label for="full_name">Full name:</label>
+          </dt>
+          <dd>
+            <input type="text" name="full_name" value="{{full_name}}" required>
+          </dd>
+          <dt>
+            <label for="phone_number">Phone number:</label>
+          </dt>
+          <dd>
+            <input type="tel" name="phone_number" value="{{phone_number}}" pattern="[\s+-()\d]">
+          </dd>
+          <dt>
+            <label for="email">Email address:</label>
+          </dt>
+          <dd>
+            <input type="text" name="email" value="{{email}}" pattern=".+@.+">
+          </dd>
+        </dl>
+        <input type="hidden" name="id" value={{id}}>
+        <button type="submit">Save</button>
+        <button type="button">Cancel</button>
+      </form>
+    </script>
+  </section>
+
+</main>
+
+<footer>
+  <p>Made by <a href="https://www.hrmn.dev">Marc Hermann</a> (who was already online in the 90s) as part of the <a href="https://launchschool.com">Launch School</a> core curriculum.</p>
+</footer>
 
 </body>
 </html>
