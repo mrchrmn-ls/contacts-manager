@@ -82,12 +82,11 @@ export class ContactList {
     } else {
       filtered = this.contacts.filter(contact => {
         if (contact.full_name.toLowerCase().includes(string) ||
-            contact.email?.toLowerCase().includes(string) ||
-            contact.phone_number?.toLowerCase().includes(string ||
-            contact.tags?.includes(string))) return true;
-        // if (contact.tags) {
-        //   if (contact.tags.includes(string)) return true;
-        // }
+            contact.email.toLowerCase().includes(string) ||
+            contact.phone_number?.toLowerCase().includes(string)) return true;
+        if (contact.tags) {
+          if (contact.tags.includes(string)) return true;
+        }
       });  
     }
 
