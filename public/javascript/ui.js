@@ -118,7 +118,6 @@ export class UI {
 
   highlightElement(element, string) {
     if (string) {
-      console.log("highlighting");
       let regexp = new RegExp(string, "gi");
       let newHTML = element.innerHTML.replace(regexp, `<mark>$&</mark>`);
       element.innerHTML = newHTML;  
